@@ -12,6 +12,7 @@ app.post("/reset", (req, res) => {
   res.status(200).send("OK");
 });
 
+
 app.post("/event", (req, res) => {
     const { type, amount, origin, destination } = req.body;
 
@@ -58,6 +59,37 @@ app.post("/event", (req, res) => {
                 return res.status(404).send("0");
             }
 
+        } else if (type === "transfer") {
+            if (!origin || !destination) {
+                return res.status(400).send("Origin and destination accounts are required for transfer");
+            }
+
+            if (!accounts[origin]) {
+                return res.status(404).send("0");
+            }
+
+            if (!accounts[destination]) {
+                accounts[destination] = 0;
+            }
+
+            if (accounts[origin] >= amount) {
+                accounts[origin] -= amount;
+                accounts[destination] += amount;
+                events.push({ type, amount, origin, destination });
+
+                return res.status(201).json({
+                    origin: {
+                        id: origin,
+                        balance: accounts[origin]
+                    },
+                    destination: {
+                        id: destination,
+                        balance: accounts[destination]
+                    }
+                });
+            } else {
+                return res.status(404).send("0");
+            }
         } else {
             return res.status(400).send("Invalid event type");
         }
@@ -65,6 +97,7 @@ app.post("/event", (req, res) => {
         return res.status(400).send("Invalid request body");
     }
 });
+
 
 app.get("/balance", (req, res) => {
     const { account_id } = req.query;
