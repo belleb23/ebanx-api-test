@@ -17,7 +17,6 @@ app.post("/event", (req, res) => {
 
     if (type && amount !== undefined) {
         if (type === "deposit") {
-            
             if (!destination) {
                 return res.status(400).send("Destination account is required for deposit");
             }
@@ -35,6 +34,30 @@ app.post("/event", (req, res) => {
                     balance: accounts[destination]
                 }
             });
+
+        } else if (type === "withdraw") {
+            if (!origin) {
+                return res.status(400).send("Origin account is required for withdraw");
+            }
+
+            if (!accounts[origin]) {
+                return res.status(404).send("0");
+            }
+
+            if (accounts[origin] >= amount) {
+                accounts[origin] -= amount;
+                events.push({ type, amount, origin });
+
+                return res.status(201).json({
+                    origin: {
+                        id: origin,
+                        balance: accounts[origin]
+                    }
+                });
+            } else {
+                return res.status(404).send("0");
+            }
+
         } else {
             return res.status(400).send("Invalid event type");
         }
