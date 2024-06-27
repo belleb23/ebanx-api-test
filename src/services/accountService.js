@@ -1,13 +1,14 @@
-//accountService
 let accounts = {};
 let events = [];
 
+// Function to reset accounts and events arrays
 const resetAccounts = () => {
     accounts = {};
     events = [];
     return "OK";
 };
 
+// Function to handle different types of events: deposit, withdraw, transfer
 const handleEvent = ({ type, amount, origin, destination }) => {
     if (type && amount !== undefined) {
         if (type === "deposit") {
@@ -91,6 +92,7 @@ const handleEvent = ({ type, amount, origin, destination }) => {
     }
 };
 
+// Function to get balance of an account
 const getBalance = (accountId) => {
     if (!accountId) {
         throw new Error("Account ID is required");

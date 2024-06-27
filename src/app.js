@@ -1,4 +1,3 @@
-// src/app.js
 const express = require("express");
 const accountRoutes = require("./routes/accountRoutes");
 

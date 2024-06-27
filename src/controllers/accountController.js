@@ -1,6 +1,6 @@
-// accountControllser.js
 const { resetAccounts, handleEvent, getBalance } = require("../services/accountService");
 
+// Controller function for resetting accounts
 const resetHandler = (req, res) => {
     try {
         const result = resetAccounts();
@@ -10,6 +10,7 @@ const resetHandler = (req, res) => {
     }
 };
 
+// Controller function for handling events
 const eventHandler = (req, res) => {
     try {
         const result = handleEvent(req.body);
@@ -25,6 +26,7 @@ const eventHandler = (req, res) => {
     }
 };
 
+// Controller function for retrieving account balance
 const balanceHandler = (req, res) => {
     try {
         const balance = getBalance(req.query.account_id);

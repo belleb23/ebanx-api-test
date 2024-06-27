@@ -2,7 +2,9 @@ const request = require('supertest');
 const app = require('../src/app');
 const accountService = require('../src/services/accountService');
 
+// Test suite for API endpoints
 describe('API Endpoints', () => {
+
     describe('POST /reset', () => {
         beforeEach(() => {
             accountService.resetAccounts();
