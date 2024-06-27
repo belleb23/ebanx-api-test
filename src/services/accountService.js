@@ -1,3 +1,4 @@
+//accountService
 let accounts = {};
 let events = [];
 
