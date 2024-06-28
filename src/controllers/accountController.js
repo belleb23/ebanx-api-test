@@ -18,7 +18,7 @@ const eventHandler = (req, res) => {
     } catch (error) {
         if (error.message === "0") {
             res.status(404).send(error.message);
-        } else if (error.message === "Invalid request body" || error.message === "Invalid event type" || error.message.includes("is required")) {
+        } else if (error.message === "Invalid request body" || error.message === "Invalid event type" || error.message.includes("required")) {
             res.status(400).send(error.message);
         } else {
             res.status(500).send(error.message);
